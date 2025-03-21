@@ -44,8 +44,8 @@ class Tail extends AirplanePart {
 }
 
 // GUI Class
-public class AirplaneGUI extends JFrame {
-    public AirplaneGUI() {
+public class Main extends JFrame {
+    public Main() {
         setTitle("GUI Inheritance Project - Airplane");
         setSize(400, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,6 +74,6 @@ public class AirplaneGUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        new AirplaneGUI();
+        new Main();
     }
 }
