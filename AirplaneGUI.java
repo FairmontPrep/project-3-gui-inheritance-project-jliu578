@@ -17,11 +17,13 @@ class AirplanePart {
     }
 
     public ImageIcon getImage() {
-        return new ImageIcon(imagePath);
+        ImageIcon icon = new ImageIcon(imagePath);
+        Image img = icon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+        return new ImageIcon(img);
     }
 }
 
-// Child Class
+// Child Classes
 class Wings extends AirplanePart {
     public Wings() {
         super(
@@ -44,36 +46,47 @@ class Tail extends AirplanePart {
 }
 
 // GUI Class
-public class Main extends JFrame {
-    public Main() {
+public class AirplaneGUI extends JFrame {
+    public AirplaneGUI() {
         setTitle("GUI Inheritance Project - Airplane");
-        setSize(400, 500);
+        setSize(500, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new GridLayout(5, 1));
+        setLayout(new BorderLayout());
+
+        // Panel to hold airplane parts
+        JPanel airplanePanel = new JPanel();
+        airplanePanel.setLayout(new BoxLayout(airplanePanel, BoxLayout.Y_AXIS));
+        airplanePanel.setBackground(Color.WHITE);
 
         // Create parts
         Wings wings = new Wings();
         Body body = new Body();
         Tail tail = new Tail();
 
-        // Add images
-        add(new JLabel(wings.getImage()));
-        add(new JLabel(body.getImage()));
-        add(new JLabel(tail.getImage()));
+        // Add images to panel
+        airplanePanel.add(new JLabel(wings.getImage(), SwingConstants.CENTER));
+        airplanePanel.add(new JLabel(body.getImage(), SwingConstants.CENTER));
+        airplanePanel.add(new JLabel(tail.getImage(), SwingConstants.CENTER));
 
-        // Display description
+        // Description Panel
+        JPanel descriptionPanel = new JPanel();
+        descriptionPanel.setLayout(new GridLayout(1, 1));
         JLabel descriptionLabel = new JLabel(
-            "<html>" + wings.getDescription() + "<br>" +
+            "<html><center>" + wings.getDescription() + "<br>" +
             body.getDescription() + "<br>" +
-            tail.getDescription() + "<br>" +
+            tail.getDescription() + "</center></html>",
             SwingConstants.CENTER
         );
-        add(descriptionLabel);
+        descriptionPanel.add(descriptionLabel);
+
+        // Add panels to frame
+        add(airplanePanel, BorderLayout.CENTER);
+        add(descriptionPanel, BorderLayout.SOUTH);
 
         setVisible(true);
     }
 
     public static void main(String[] args) {
-        new Main();
+        new AirplaneGUI();
     }
 }
